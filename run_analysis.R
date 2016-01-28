@@ -41,24 +41,24 @@ data_mean_std <- data[columns_mean_std,]
 
 # 3.- Uses descriptive activity names to name the activities in the data set
 activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")[,2]
-data[,2] = activity_labels[data[,2]]
+data_mean_std[,2] = activity_labels[data_mean_std[,2]]
 
 # 4.- Appropriately labels the data set with descriptive variable names.
-names(data)[1] = "subject"
-names(data)[2] = "activity"
-names(data)<-gsub("^t", "time", names(data))
-names(data)<-gsub("^f", "frequency", names(data))
-names(data)<-gsub("Acc", "Accelerometer", names(data))
-names(data)<-gsub("Gyro", "Gyroscope", names(data))
-names(data)<-gsub("Mag", "Magnitude", names(data))
-names(data)<-gsub("BodyBody", "Body", names(data))
+names(data_mean_std)[1] = "subject"
+names(data_mean_std)[2] = "activity"
+names(data_mean_std)<-gsub("^t", "time", names(data_mean_std))
+names(data_mean_std)<-gsub("^f", "frequency", names(data_mean_std))
+names(data_mean_std)<-gsub("Acc", "Accelerometer", names(data_mean_std))
+names(data_mean_std)<-gsub("Gyro", "Gyroscope", names(data_mean_std))
+names(data_mean_std)<-gsub("Mag", "Magnitude", names(data_mean_std))
+names(data_mean_std)<-gsub("BodyBody", "Body", names(data_mean_std))
 
 # 5.-From the data set in step 4, creates a second, independent tidy data set with the 
 # average of each variable for each activity and each subject.
 
-aggregated_data <- aggregate(data[, 3:ncol(data)],
-                       by=list(subject = data$subject, 
-                               activity = data$activity),
+aggregated_data <- aggregate(data_mean_std[, 3:ncol(data_mean_std)],
+                       by=list(subject = data_mean_std$subject, 
+                       activity = data_mean_std$activity),
                        mean)
 # write into a file
 write.table(aggregated_data, file = "tidydata.txt",row.name=FALSE)
