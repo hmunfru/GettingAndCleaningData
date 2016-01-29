@@ -37,7 +37,7 @@ data <- cbind(data_subject, data_activity, data_features)
 # 2.- Extracts only the measurements on the mean and standard deviation
 # for each measurement.
 columns_mean_std <- grep(".*Mean.*|.*Std.*", names(data), ignore.case=TRUE)
-data_mean_std <- data[columns_mean_std,]
+data_mean_std <- cbind(data[,1:2], data[,columns_mean_std])
 
 # 3.- Uses descriptive activity names to name the activities in the data set
 activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")[,2]
